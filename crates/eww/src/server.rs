@@ -57,7 +57,7 @@ pub fn initialize_server<B: DisplayBackend>(
     "#
     );
 
-    simple_signal::set_handler(&[simple_signal::Signal::Int, simple_signal::Signal::Term], move |_| {
+    simple_signal::set_handler(&[simple_signal::Signal::Int, simple_signal::Signal::Term, simple_signal::Signal::Hup], move |_| {
         log::info!("Shutting down eww daemon...");
         if let Err(e) = crate::application_lifecycle::send_exit() {
             log::error!("Failed to send application shutdown event to workers: {:?}", e);
